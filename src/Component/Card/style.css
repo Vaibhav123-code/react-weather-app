@@ -1,0 +1,36 @@
+.card-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: skyblue;
+    width: 300px;
+    height: 200px;
+}
+/* YourStyles.css */
+
+.card {
+    padding: 20px;
+    margin: 20px;
+    text-align: center;
+  }
+   
+  .title-style {
+    text-align: center;
+    color: #333; /* Set your desired text color */
+    font-size: 24px;
+    margin-bottom: 10px;
+  }
+  
+  .description {
+    color: #555; /* Set your desired text color */
+    font-size: 18px;
+    margin-top: 10px;
+  }
+  
+  .temp {
+    color: #555; /* Set your desired text color */
+    font-size: 18px;
+    margin-top: 10px;
+  }
+  
+  
