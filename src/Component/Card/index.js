@@ -1,41 +1,81 @@
-import * as React from 'react';
-import Box from '@mui/material/Box';
-import Paper from '@mui/material/Paper';
+import React, { useEffect, useState } from 'react'; 
 import './style.css'
+import clear from '../../Assets/clear.png'
+import cloud from '../../Assets/cloud.png'
+import drizzle from '../../Assets/drizzle.png'
+import rain from '../../Assets/rain.png'
+import snow from '../../Assets/snow.png'
+import haze from '../../Assets/humidity.png' 
+import wind from '../../Assets/wind.png'
+
 export default function Card({weatherData}) {
+  const [icon, setIcon] = useState(clear);
+  console.log(cloud)
+  console.log(clear)
+  useEffect(() => {
+    if(weatherData){
+      const weatherMain = weatherData.weather[0].main;
+      console.log(weatherMain)
+      switch (weatherMain) {
+        case 'Clouds':
+          setIcon(cloud);
+          break;
+        case 'Drizzle':
+          setIcon(drizzle);
+          break;
+        case 'Rain':
+          setIcon(rain);
+          break;
+        case 'Snow':
+          setIcon(snow);
+          break;
+        case 'Haze':
+          setIcon(haze);
+          break;
+        case 'Clear':
+          setIcon(clear);
+          break;
+        default:
+          setIcon(clear); // Default to clear image if no match
+      }
+  }
+  },[weatherData])
+  
   return (
-    <Box
-      sx={{
-        display: 'flex',
-        flexWrap: 'wrap',
-        justifyContent:'center',
-        alignItems:'center',
-        '& > :not(style)': {
-          m: 1,
-          width: 600,
-          height: 300,
-          backgroundColor: 'skyblue'
-        },
-      }} 
-    >
-      <Paper elevation={7} className='card'>
-        <div>
-        {weatherData && (
-        <div>
-          <h2 className='title-style'>Weather in {weatherData.name}, {weatherData.sys.country}</h2>
-          
-          {weatherData.weather && weatherData.weather.length > 0 && (
-            <p className='description'>Description: {weatherData.weather[0].description}</p>
-          )}
-          {weatherData.main && (
-            <p className='temp'>Temperature: {weatherData.main.temp} K</p>
-          )}
-         
+    <div className='main-container'>
+    {weatherData && (
+     <div className='weather-container'>
+      <div className='weather-icon'>
+        <img src={clear} alt='icon'/>
+      </div>
+      <div className='temp'>
+      <p className='title-style'> {Math.floor(weatherData.main.temp)} °C</p>
+      </div>
+      <div className='location'>
+        <p>{weatherData.name}</p>
+      </div>
+      <div className='weather-detail'>
+        <div className='humidity'>
+          <img src={haze} alt='icon'/>
+            <p>{weatherData.main.humidity} % </p>
+            <div className='humidity-text'>
+            <p>humidity</p>
+            </div>
         </div>
-      )}
+        <div className='wind'>
+        <img src={wind} alt='icon'/>
+            <p>{weatherData.wind.speed} km/hr </p>
+            <div className='wind-text'>
+            <p>wind speed</p>
+            </div>
         </div>
-      </Paper>
-    
-    </Box>
+           
+      </div>
+      
+      
+      </div>
+
+  )}
+    </div>
   );
 }
